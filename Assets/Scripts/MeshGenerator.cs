@@ -6,11 +6,13 @@ using UnityEngine;
 public class MeshGenerator : MonoBehaviour
 {
     Mesh mesh;
-    public GameObject[] holds;
+    //public GameObject[] holds;
+    int difficultyinfo;
 
-    Vector3[] vertices;
+    public Vector3[] vertices;
     int[] triangles;
     Vector2[] uvs;
+    public int[] holdDifficulty;
 
     public int xSize;
     public int ySize;
@@ -20,12 +22,14 @@ public class MeshGenerator : MonoBehaviour
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh =  mesh;
+        
 
         xSize = Random.Range(12, 28);
         ySize = Random.Range(17, 38);
         CreateShape();
         UpdateMesh();
-        ClimableRoute();
+        //ClimableRoute();
+
 
     }
 
@@ -97,29 +101,20 @@ public class MeshGenerator : MonoBehaviour
         {
              Gizmos.DrawSphere(vertices[i], .1f);
         }
-
-
     }
 
-    void ClimableRoute()
+    /*void ClimableRoute()
     {
         routeSize = Random.Range(15, 60);
-        Debug.Log(vertices.Length);
+        holdDifficulty = new int[routeSize];
         Debug.Log(routeSize);
         for (int i = 0; i < routeSize; i++)
         {
+            int prefabIndex = Random.Range(0, 4);
             int randIndex = Random.Range(xSize, vertices.Length);
-            Debug.Log(randIndex);
-            //climableRoute[i] = rand;
-            Debug.Log(vertices[randIndex]);
-            Instantiate(holds[Random.Range(0, 4)], vertices[randIndex], Quaternion.Euler(0,0,0));
+            Instantiate(holds[prefabIndex], vertices[randIndex], Quaternion.Euler(0,0,0));
+            holdDifficulty[i] = prefabIndex;
+            Debug.Log(holdDifficulty[i]);
         }
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-    }
+    }*/
 }

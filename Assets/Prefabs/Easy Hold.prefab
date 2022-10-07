@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 319292392196643955}
   - component: {fileID: 1389241386409719637}
   - component: {fileID: 1051641458540361223}
-  - component: {fileID: -3287804753490958368}
+  - component: {fileID: 8167766503243353771}
   m_Layer: 6
   m_Name: Easy Hold
   m_TagString: Holds
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3b48a2f1cba6448b2748bc2663617c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3287804753490958368
+--- !u!114 &8167766503243353771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7407287678219863052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa46c9598053dc14cacc3d86a704eaf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 24ddee1361bf2bd41b8c5a58b2f84e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 3
+  holdLevel: 3

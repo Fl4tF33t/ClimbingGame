@@ -18,19 +18,16 @@ public class MeshGenerator : MonoBehaviour
     public int ySize;
     public int routeSize;
     // Start is called before the first frame update
-    void Start()
+    public void StartButton()
     {
         mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh =  mesh;
-        
+        GetComponent<MeshFilter>().mesh =  mesh;      
 
         xSize = Random.Range(12, 28);
         ySize = Random.Range(17, 38);
         CreateShape();
         UpdateMesh();
         //ClimableRoute();
-
-
     }
 
     void CreateShape()

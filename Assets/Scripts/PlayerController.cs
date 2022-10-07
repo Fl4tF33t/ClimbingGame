@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float armRange = 5f;
     public float legRange = 5f;
     bool isJumping = false;
-    int holds;
+    public int holds;
 
     // Start is called before the first frame update
     void Start()
@@ -48,36 +48,64 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                float yDifference = hit.transform.position.y - transform.position.y;
-                float xDifference = hit.transform.position.x - transform.position.x;
-
-                holds = hit.transform.gameObject.GetComponent<Difficulty>().difficulty;
-
-                if(holds >= 0)
+                if (ReachableToClimb(hit))
                 {
-                    if (hit.transform.position.x - rHand.transform.position.x <= 1)
+                    if (HoldsCheck(hit)[0])
                     {
-                        if (yDifference < armRange && yDifference > -armRange && xDifference < armRange && xDifference > -armRange)
-                        {
-                            lHand.transform.position = hit.transform.position + handOffset;
-                            transform.position = CentrePoint();
-                            Debug.Log(HoldCheck(hit));
-                        }
+                        Debug.Log(HoldsCheck(hit)[0]);
+                        lHand.transform.position = hit.transform.position + handOffset;
+                        transform.position = CentrePoint();
+                        hit.transform.GetComponent<Holds>().HoldInUse(); 
                     }
                 }
-                
             }
         }
     }
 
-    float CheckPosition(RaycastHit hit)
+    bool[] HoldsCheck (RaycastHit hit)
     {
-        float[] values = new float[2];
-        float yDifference = hit.transform.position.y - transform.position.y;
-        float xDifference = hit.transform.position.x - transform.position.x;
-        return values
+        int holdLevel = hit.transform.GetComponent<Holds>().holdLevel;
+        bool[] holdCheck = new bool[4];
+        holdCheck[0] = false;
+        holdCheck[1] = false;
+        holdCheck[2] = false;
+        holdCheck[3] = false;
+        if(holdLevel < 0)
+        {
+            holdCheck[0] = false;
+            holdCheck[1] = false;
+            holdCheck[2] = false;
+            holdCheck[3] = false;
+        }else if (holdLevel == 0)
+        {
+            holdCheck[0] = false;
+            holdCheck[1] = false;
+            holdCheck[2] = true;
+            holdCheck[3] = true;
+        }else if (holdLevel == 1)
+        {
+            holdCheck[0] = false;
+            holdCheck[1] = false;
+            holdCheck[2] = true;
+            holdCheck[3] = true;
+        }
+        else if (holdLevel == 2)
+        {
+            holdCheck[0] = true;
+            holdCheck[1] = true;
+            holdCheck[2] = true;
+            holdCheck[3] = true;
+        }
+        else if (holdLevel == 3)
+        {
+            holdCheck[0] = true;
+            holdCheck[1] = true;
+            holdCheck[2] = true;
+            holdCheck[3] = true;
+        }
+        return holdCheck;
     }
-    
+
     void MovingRightHand()
     {
         if (Input.GetMouseButtonDown(1))
@@ -86,15 +114,13 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                float yDifference = hit.transform.position.y - transform.position.y;
-                float xDifference = hit.transform.position.x - transform.position.x;
-
-                if (lHand.transform.position.x - hit.transform.position.x <= 1)
+                if (ReachableToClimb(hit))
                 {
-                    if (yDifference < armRange && yDifference > -armRange && xDifference < armRange && xDifference > -armRange)
+                    if (HoldsCheck(hit)[1])
                     {
                         rHand.transform.position = hit.transform.position + handOffset;
                         transform.position = CentrePoint();
+                        hit.transform.GetComponent<Holds>().HoldInUse();
                     }
                 }
             }
@@ -109,16 +135,13 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                float yDifference = hit.transform.position.y - transform.position.y;
-                float xDifference = hit.transform.position.x - transform.position.x;
-
-                if (hit.transform.position.x - rFoot.transform.position.x <= 1)
+                if (ReachableToClimb(hit))
                 {
-                    if (yDifference < armRange && yDifference > -armRange && xDifference < armRange && xDifference > -armRange)
+                    if (HoldsCheck(hit)[2])
                     {
                         lFoot.transform.position = hit.transform.position + handOffset;
                         transform.position = CentrePoint();
-
+                        hit.transform.GetComponent<Holds>().HoldInUse();
                     }
                 }
             }
@@ -133,16 +156,13 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                float yDifference = hit.transform.position.y - transform.position.y;
-                float xDifference = hit.transform.position.x - transform.position.x;
-
-
-                if (lFoot.transform.position.x - hit.transform.position.x <= 1)
+                if (ReachableToClimb(hit))
                 {
-                    if (yDifference < armRange && yDifference > -armRange && xDifference < armRange && xDifference > -armRange)
+                    if (HoldsCheck(hit)[3])
                     {
                         rFoot.transform.position = hit.transform.position + handOffset;
                         transform.position = CentrePoint();
+                        hit.transform.GetComponent<Holds>().HoldInUse();
                     }
                 }
             }
@@ -192,6 +212,26 @@ public class PlayerController : MonoBehaviour
         return centerPoint; 
     }
 
+    bool ReachableToClimb(RaycastHit hit)
+    {
+        bool canClimb;
+        if (transform.position.x - hit.transform.position.x < -armRange || transform.position.x - hit.transform.position.x > armRange)
+        {
+            canClimb = false;
+        }
+        if (transform.position.y - hit.transform.position.y < -armRange || transform.position.y - hit.transform.position.y > armRange)
+        {
+            canClimb = false;
+        }
+        else
+        {
+            canClimb = true;
+        }
+        return canClimb;
+    }
+
+    
+
     int HoldCheck(RaycastHit hit)
     {
         int numbers = 0;
@@ -201,4 +241,5 @@ public class PlayerController : MonoBehaviour
         }
         return numbers;
     }
+
 }

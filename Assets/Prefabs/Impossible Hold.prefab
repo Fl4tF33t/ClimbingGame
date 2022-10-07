@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3125636957514791516}
   - component: {fileID: 248862026184161835}
   - component: {fileID: -4692305770800898124}
-  - component: {fileID: -2737490410940610687}
+  - component: {fileID: -647817082260234022}
   m_Layer: 6
   m_Name: Impossible Hold
   m_TagString: Holds
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3b48a2f1cba6448b2748bc2663617c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2737490410940610687
+--- !u!114 &-647817082260234022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5651679545215426325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa46c9598053dc14cacc3d86a704eaf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 24ddee1361bf2bd41b8c5a58b2f84e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0

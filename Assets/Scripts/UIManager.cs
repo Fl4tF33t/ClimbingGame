@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject createWallButton;
     [SerializeField] GameObject createRouteButton;
 
+    public GameObject player;
+
     [SerializeField] Text createWallButtonText;
 
     [SerializeField] MeshGenerator meshGenerator;
@@ -46,6 +48,9 @@ public class UIManager : MonoBehaviour
     public void CreateGameRouteButton()
     {
         routeCreator.StartRouteCreation();
+        createWallButton.SetActive(!createWallButton.activeSelf);
+        createRouteButton.SetActive(!createRouteButton.activeSelf);
+        player.SetActive(true);
     }
     // Update is called once per frame
     void Update()
